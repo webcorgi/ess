@@ -388,9 +388,270 @@
             </div>
         </div>
 
-        <!-- 운영·관리 지표 -->
+        <!-- 에너지 관리 지표 -->
         <h2
-            class="text-white text-xl font-bold leading-tight tracking-tight mt-10 mb-4">⚡ 운영·관리 지표</h2>
+            class="text-white text-xl font-bold leading-tight tracking-tight mt-10 mb-4">⚡ 에너지 관리 지표</h2>
+        <div
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8 mobile-grid-responsive mobile-gap-2">
+            <!-- 피크 셰이빙 -->
+            <div
+                class="flex flex-col gap-2 rounded-xl p-4 bg-card-dark shadow-neumorphic-dark mobile-card-compact">
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary text-lg">trending_down</span>
+                    <p class="text-gray-300 text-base font-medium">피크 셰이빙</p>
+                </div>
+                <p class="text-primary text-4xl font-black">2.1 MW</p>
+                <p class="text-gray-400 text-base">피크 시간대 부하 절감</p>
+                <div class="flex items-center gap-1 mt-2">
+                    <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                    <span class="text-green-500 text-base font-medium">우수</span>
+                </div>
+            </div>
+
+            <!-- 부하 평준화 -->
+            <div
+                class="flex flex-col gap-2 rounded-xl p-4 bg-card-dark shadow-neumorphic-dark mobile-card-compact">
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary text-lg">balance</span>
+                    <p class="text-gray-300 text-base font-medium">부하 평준화</p>
+                </div>
+                <p class="text-primary text-4xl font-black">87%</p>
+                <p class="text-gray-400 text-base">전력 사용 패턴 균등화</p>
+                <div class="flex items-center gap-1 mt-2">
+                    <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                    <span class="text-green-500 text-base font-medium">양호</span>
+                </div>
+            </div>
+
+            <!-- 에너지 밸런싱 -->
+            <div
+                class="flex flex-col gap-2 rounded-xl p-4 bg-card-dark shadow-neumorphic-dark mobile-card-compact">
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary text-lg">scale</span>
+                    <p class="text-gray-300 text-base font-medium">에너지 밸런싱</p>
+                </div>
+                <p class="text-primary text-4xl font-black">94%</p>
+                <p class="text-gray-400 text-base">수요-공급 균형 유지</p>
+                <div class="flex items-center gap-1 mt-2">
+                    <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                    <span class="text-green-500 text-base font-medium">우수</span>
+                </div>
+            </div>
+
+            <!-- 백업 전력 용량 -->
+            <div
+                class="flex flex-col gap-2 rounded-xl p-4 bg-card-dark shadow-neumorphic-dark mobile-card-compact">
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary text-lg">emergency</span>
+                    <p class="text-gray-300 text-base font-medium">백업 전력 용량</p>
+                </div>
+                <p class="text-primary text-4xl font-black">3.2 MW</p>
+                <p class="text-gray-400 text-base">정전 시 공급 가능</p>
+                <div class="flex items-center gap-1 mt-2">
+                    <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                    <span class="text-green-500 text-base font-medium">충분</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 경제성 분석 지표 -->
+        <h2
+            class="text-white text-xl font-bold leading-tight tracking-tight mt-10 mb-4">💰 경제성 분석 지표</h2>
+        <div
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8 mobile-grid-responsive mobile-gap-2">
+            <!-- 전력 구매 비용 절감 -->
+            <div
+                class="flex flex-col gap-2 rounded-xl p-4 bg-card-dark shadow-neumorphic-dark mobile-card-compact">
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary text-lg">savings</span>
+                    <p class="text-gray-300 text-base font-medium">전력 구매 비용 절감</p>
+                </div>
+                <p class="text-primary text-4xl font-black">₩1.8M</p>
+                <p class="text-gray-400 text-base">시간대별 요금 차이 활용</p>
+                <div class="flex items-center gap-1 mt-2">
+                    <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                    <span class="text-green-500 text-base font-medium">우수</span>
+                </div>
+            </div>
+
+            <!-- 수요 반응 참여 수익 -->
+            <div
+                class="flex flex-col gap-2 rounded-xl p-4 bg-card-dark shadow-neumorphic-dark mobile-card-compact">
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary text-lg">handshake</span>
+                    <p class="text-gray-300 text-base font-medium">수요 반응 참여 수익</p>
+                </div>
+                <p class="text-primary text-4xl font-black">₩650K</p>
+                <p class="text-gray-400 text-base">DR 프로그램 참여 수익</p>
+                <div class="flex items-center gap-1 mt-2">
+                    <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                    <span class="text-green-500 text-base font-medium">양호</span>
+                </div>
+            </div>
+
+            <!-- 용량 요금 절감 -->
+            <div
+                class="flex flex-col gap-2 rounded-xl p-4 bg-card-dark shadow-neumorphic-dark mobile-card-compact">
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary text-lg">trending_down</span>
+                    <p class="text-gray-300 text-base font-medium">용량 요금 절감</p>
+                </div>
+                <p class="text-primary text-4xl font-black">₩420K</p>
+                <p class="text-gray-400 text-base">최대 수요 전력 감소</p>
+                <div class="flex items-center gap-1 mt-2">
+                    <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                    <span class="text-green-500 text-base font-medium">우수</span>
+                </div>
+            </div>
+
+            <!-- 탄소 크레딧 -->
+            <div
+                class="flex flex-col gap-2 rounded-xl p-4 bg-card-dark shadow-neumorphic-dark mobile-card-compact">
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary text-lg">eco</span>
+                    <p class="text-gray-300 text-base font-medium">탄소 크레딧</p>
+                </div>
+                <p class="text-primary text-4xl font-black">₩180K</p>
+                <p class="text-gray-400 text-base">CO₂ 감소 크레딧 수익</p>
+                <div class="flex items-center gap-1 mt-2">
+                    <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                    <span class="text-green-500 text-base font-medium">양호</span>
+                </div>
+            </div>
+        </div>
+        <!-- 운영 효율성 지표 -->
+        <h2
+            class="text-white text-xl font-bold leading-tight tracking-tight mt-10 mb-4">⚙️ 운영 효율성 지표</h2>
+        <div
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8 mobile-grid-responsive mobile-gap-2">
+            <!-- 가동률 -->
+            <div
+                class="flex flex-col gap-2 rounded-xl p-4 bg-card-dark shadow-neumorphic-dark mobile-card-compact">
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary text-lg">schedule</span>
+                    <p class="text-gray-300 text-base font-medium">가동률</p>
+                </div>
+                <p class="text-primary text-4xl font-black">99.2%</p>
+                <p class="text-gray-400 text-base">시스템 가동 가능 시간</p>
+                <div class="flex items-center gap-1 mt-2">
+                    <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                    <span class="text-green-500 text-base font-medium">우수</span>
+                </div>
+            </div>
+
+            <!-- 신뢰성 지표 -->
+            <div
+                class="flex flex-col gap-2 rounded-xl p-4 bg-card-dark shadow-neumorphic-dark mobile-card-compact">
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary text-lg">verified</span>
+                    <p class="text-gray-300 text-base font-medium">신뢰성 지표</p>
+                </div>
+                <p class="text-primary text-4xl font-black">98.5%</p>
+                <p class="text-gray-400 text-base">MTBF/MTTR 기반 신뢰성</p>
+                <div class="flex items-center gap-1 mt-2">
+                    <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                    <span class="text-green-500 text-base font-medium">우수</span>
+                </div>
+            </div>
+
+            <!-- 예측 정확도 -->
+            <div
+                class="flex flex-col gap-2 rounded-xl p-4 bg-card-dark shadow-neumorphic-dark mobile-card-compact">
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary text-lg">psychology</span>
+                    <p class="text-gray-300 text-base font-medium">예측 정확도</p>
+                </div>
+                <p class="text-primary text-4xl font-black">92.8%</p>
+                <p class="text-gray-400 text-base">에너지 수요 예측 정확도</p>
+                <div class="flex items-center gap-1 mt-2">
+                    <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                    <span class="text-green-500 text-base font-medium">양호</span>
+                </div>
+            </div>
+
+            <!-- 자동화 수준 -->
+            <div
+                class="flex flex-col gap-2 rounded-xl p-4 bg-card-dark shadow-neumorphic-dark mobile-card-compact">
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary text-lg">auto_awesome</span>
+                    <p class="text-gray-300 text-base font-medium">자동화 수준</p>
+                </div>
+                <p class="text-primary text-4xl font-black">95.3%</p>
+                <p class="text-gray-400 text-base">자동 운영 비율</p>
+                <div class="flex items-center gap-1 mt-2">
+                    <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                    <span class="text-green-500 text-base font-medium">우수</span>
+                </div>
+            </div>
+        </div>
+        <!-- 환경 및 지속가능성 지표 -->
+        <h2
+            class="text-white text-xl font-bold leading-tight tracking-tight mt-10 mb-4">🌱 환경 및 지속가능성 지표</h2>
+        <div
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8 mobile-grid-responsive mobile-gap-2">
+            <!-- 재생에너지 연계율 -->
+            <div
+                class="flex flex-col gap-2 rounded-xl p-4 bg-card-dark shadow-neumorphic-dark mobile-card-compact">
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary text-lg">solar_power</span>
+                    <p class="text-gray-300 text-base font-medium">재생에너지 연계율</p>
+                </div>
+                <p class="text-primary text-4xl font-black">78%</p>
+                <p class="text-gray-400 text-base">태양광/풍력 연계 비율</p>
+                <div class="flex items-center gap-1 mt-2">
+                    <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                    <span class="text-green-500 text-base font-medium">우수</span>
+                </div>
+            </div>
+
+            <!-- 탄소 발자국 -->
+            <div
+                class="flex flex-col gap-2 rounded-xl p-4 bg-card-dark shadow-neumorphic-dark mobile-card-compact">
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary text-lg">footprint</span>
+                    <p class="text-gray-300 text-base font-medium">탄소 발자국</p>
+                </div>
+                <p class="text-primary text-4xl font-black">-2.3t</p>
+                <p class="text-gray-400 text-base">생명주기 CO₂ 배출량</p>
+                <div class="flex items-center gap-1 mt-2">
+                    <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                    <span class="text-green-500 text-base font-medium">우수</span>
+                </div>
+            </div>
+
+            <!-- 재활용 가능성 -->
+            <div
+                class="flex flex-col gap-2 rounded-xl p-4 bg-card-dark shadow-neumorphic-dark mobile-card-compact">
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary text-lg">recycling</span>
+                    <p class="text-gray-300 text-base font-medium">재활용 가능성</p>
+                </div>
+                <p class="text-primary text-4xl font-black">85%</p>
+                <p class="text-gray-400 text-base">배터리 재활용 계획률</p>
+                <div class="flex items-center gap-1 mt-2">
+                    <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                    <span class="text-green-500 text-base font-medium">양호</span>
+                </div>
+            </div>
+
+            <!-- 친환경 인증 -->
+            <div
+                class="flex flex-col gap-2 rounded-xl p-4 bg-card-dark shadow-neumorphic-dark mobile-card-compact">
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary text-lg">verified_user</span>
+                    <p class="text-gray-300 text-base font-medium">친환경 인증</p>
+                </div>
+                <p class="text-primary text-4xl font-black">LEED</p>
+                <p class="text-gray-400 text-base">Gold 등급 인증</p>
+                <div class="flex items-center gap-1 mt-2">
+                    <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                    <span class="text-green-500 text-base font-medium">인증</span>
+                </div>
+            </div>
+        </div>
+        <!-- 운영 관리 지표 -->
+        <h2
+            class="text-white text-xl font-bold leading-tight tracking-tight mt-10 mb-4">⚙️ 운영 관리 지표</h2>
         <div
             class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
             <!-- 활성 알림 -->
