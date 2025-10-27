@@ -59,10 +59,10 @@
 
 ### 색상 체계
 
-- Primary: `#48EBAE` (에너지 효율성, 정상 상태)
-- Warning: `#F59E0B` (주의 필요)
-- Danger: `#EF4444` (긴급 상황)
-- Info: `#3B82F6` (정보성 알림)
+- Primary(GREEN): `#48EBAE` (에너지 효율성, 정상 상태)
+- Warning(YELLOW): `#F59E0B` (주의 필요)
+- Danger(RED): `#EF4444` (긴급 상황)
+- Info(BLUE): `#3B82F6` (정보성 알림)
 
 ### 타이포그래피
 
