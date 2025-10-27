@@ -1,0 +1,1109 @@
+@charset "UTF-8";
+
+/* 에스코어드림 웹폰트 Import */
+@import url('https://cdn.jsdelivr.net/gh/ungveloper/web-fonts/SCoreDream/font-face.css');
+
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: "SCoreDream",-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+  background: linear-gradient(135deg, #fff 0%, #bfdbfe 100%);
+  color: #1e293b;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* 헤더 스타일 */
+.header {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 20px 30px;
+  border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-content {
+  max-width: 1300px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 16px;
+  color: #64748b;
+}
+
+.nav-breadcrumb span {
+  color: #1e293b;
+  font-weight: 500;
+}
+
+.status-bar {
+  display: flex;
+  gap: 20px;
+  font-size: 14px;
+}
+
+.status-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.status-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+.status-indicator.normal {
+  background: #3b82f6;
+}
+
+.status-indicator.alert {
+  background: #EF4444;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* 메인 컨테이너 */
+.container {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 30px;
+}
+
+/* ESS 그리드 뷰 (항공뷰) */
+.ess-grid {
+  perspective: 1000px;
+  margin-top: 30px;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  /* transform: rotateX(5deg); */
+  transform-style: preserve-3d;
+}
+
+.ess-unit {
+  aspect-ratio: 1;
+  background: rgba(255, 255, 255, 0.8);
+  border: 2px solid rgba(59, 130, 246, 0.2);
+  border-radius: 15px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  backdrop-filter: blur(5px);
+  transform: translateZ(0);
+}
+
+.ess-unit:hover {
+  transform: translateZ(20px) scale(1.05);
+  border-color: rgba(59, 130, 246, 0.5);
+  box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
+}
+
+.ess-unit.normal {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(147, 197, 253, 0.05));
+  border-color: #3b82f6;
+}
+
+.ess-unit.alert {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(239, 68, 68, 0.05));
+  border-color: #EF4444;
+  animation: alertPulse 2s infinite;
+}
+
+@keyframes alertPulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(239, 68, 68, 0.3); }
+  50% { box-shadow: 0 0 30px rgba(239, 68, 68, 0.6); }
+}
+
+.ess-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.ess-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.ess-status-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ess-unit.normal .ess-status-icon {
+  background: #3b82f6;
+}
+
+.ess-unit.alert .ess-status-icon {
+  background: #EF4444;
+}
+
+.ess-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.ess-metric {
+  background:rgba(255, 255, 255, 0.8);
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.ess-metric-label {
+  font-size: 14px;
+  color: #64748b;
+  margin-bottom: 5px;
+}
+
+.ess-metric-value {
+  font-size: 16px;
+  font-weight: bold;
+  color: #1e293b;
+}
+
+.ess-battery-preview {
+  margin-top: 15px;
+  height: 60px;
+  background: rgba(59, 130, 246, 0.1);
+  border-radius: 8px;
+  padding: 5px;
+  display: grid;
+  grid-template-columns: repeat(20, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 2px;
+}
+
+.battery-dot {
+  background: #3b82f6;
+  border-radius: 2px;
+  opacity: 0.6;
+}
+
+.battery-dot.alert {
+  background: #EF4444;
+  opacity: 1;
+}
+
+/* 배터리 상세 뷰 */
+.battery-detail-view {
+  display: none;
+  margin-top: 30px;
+}
+
+.battery-detail-view.active {
+  display: block;
+}
+
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 8px;
+  color: #1e293b;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-bottom: 20px;
+}
+
+.back-button:hover {
+  background: rgba(59, 130, 246, 0.1);
+  border-color: #3b82f6;
+}
+
+.battery-grid {
+  gap: 5px;
+  border-radius: 15px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: stretch;
+  flex-wrap:wrap;
+}
+
+.battery-cell {
+  min-width:32px;
+  aspect-ratio: 0.6;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.9), rgba(96, 165, 250, 0.7));
+  border-radius: 8px 8px 4px 4px;
+  cursor: pointer;
+  transition: all 0.3s;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: #fff;
+  font-weight: bold;
+  box-shadow: 
+      inset 0 -10px 20px rgba(0, 0, 0, 0.2),
+      inset 0 2px 4px rgba(255, 255, 255, 0.3),
+      0 4px 8px rgba(59, 130, 246, 0.2);
+  border: 2px solid rgba(147, 197, 253, 0.5);
+}
+
+/* 배터리 터미널 */
+.battery-cell::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  width: 30%;
+  height: 8px;
+  background: linear-gradient(135deg, #94a3b8, #64748b);
+  border-radius: 4px 4px 0 0;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* 전원 레벨 표시 */
+.battery-cell::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 2px;
+}
+
+.battery-cell:hover {
+  transform: scale(1.15) translateY(-5px);
+  z-index: 10;
+  box-shadow: 
+      inset 0 -10px 20px rgba(0, 0, 0, 0.2),
+      inset 0 2px 4px rgba(255, 255, 255, 0.3),
+      0 8px 20px rgba(59, 130, 246, 0.4),
+      0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.battery-cell.alert {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.9), rgba(220, 38, 38, 0.7));
+  border-color: rgba(239, 68, 68, 0.5);
+  animation: batteryAlert 1s infinite;
+}
+
+.battery-cell.alert::before {
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+}
+
+@keyframes batteryAlert {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* 배터리 상세 팝업 */
+.popup-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(30, 41, 59, 0.6);
+  z-index: 1000;
+  animation: fadeIn 0.3s;
+}
+
+.popup-overlay.active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.popup-content {
+  background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+  border-radius: 20px;
+  padding: 30px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(59, 130, 246, 0.2);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  animation: slideUp 0.3s;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(50px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.popup-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #1e293b;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  color: #64748b;
+  cursor: pointer;
+  font-size: 24px;
+  transition: color 0.3s;
+}
+
+.close-button:hover {
+  color: #EF4444;
+}
+
+.battery-status-badge {
+  display: inline-block;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: bold;
+  margin-left: 15px;
+}
+
+.battery-status-badge.normal {
+  background: #3b82f6;
+  color: #fff;
+}
+
+.battery-status-badge.alert {
+  background: #EF4444;
+  color: #fff;
+}
+
+.battery-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.detail-item {
+  background: rgba(255, 255, 255, 0.5);
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.detail-label {
+  font-size: 14px;
+  color: #64748b;
+  margin-bottom: 8px;
+}
+
+.detail-value {
+  font-size: 20px;
+  font-weight: bold;
+  color: #3b82f6;
+}
+
+.detail-value.alert {
+  color: #EF4444;
+}
+
+.chart-container {
+  margin-top: 20px;
+  background: rgba(255, 255, 255, 0.5);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.chart-title {
+  font-size: 14px;
+  color: #64748b;
+  margin-bottom: 15px;
+}
+
+.chart-bars {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  height: 100px;
+  gap: 10px;
+}
+
+.chart-bar {
+  flex: 1;
+  background: linear-gradient(to top, #3b82f6, #60a5fa);
+  border-radius: 4px 4px 0 0;
+  position: relative;
+}
+
+.chart-label {
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 13px;
+  color: #64748b;
+}
+
+/* 통계 패널 컨테이너 */
+.stats-container {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 30px;
+  align-items: flex-start;
+  background:rgb(255 255 255 / 80%);
+  border-radius:10px;
+  padding:20px;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+}
+
+/* ESS 이미지 */
+.ess-image {
+  flex-shrink: 0;
+  width: auto;
+  height: auto;
+  max-width: 400px;
+  border-radius: 12px;
+}
+.logo-image {
+  height:30px;
+}
+/* 통계 패널 */
+.stats-panel {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  flex: 1;
+}
+
+.stat-card {
+  background: rgba(255, 255, 255, 0.6);
+  padding: 15px;
+  border-radius: 12px;
+  border: 1px solid rgba(59, 130, 246, 0.1);
+}
+.stat-card:hover {
+  border:1px solid rgba(59, 130, 246, 0.5);
+}
+.stat-label {
+  font-size: 14px;
+  color: #64748b;
+  margin-bottom: 8px;
+}
+
+.stat-value {
+  font-size: 24px;
+  font-weight: bold;
+  color: #3b82f6;
+}
+
+.stat-trend {
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 14px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: rgba(59, 130, 246, 0.2);
+  color: #3b82f6;
+}
+
+/* 반응형 디자인 - 태블릿 (1024px 이하) */
+@media (max-width: 1024px) {
+  .container {
+    padding: 20px;
+  }
+  
+  .header {
+    padding: 15px 20px;
+  }
+  
+  .logo {
+    font-size: 20px;
+  }
+  
+  .nav-breadcrumb {
+    font-size: 14px;
+  }
+  
+  .status-bar {
+    font-size: 12px;
+    gap: 15px;
+  }
+  
+  .minimap {
+    width: 220px;
+    right: 15px;
+    top: 90px;
+  }
+  
+  .stats-panel {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .stat-value {
+    font-size: 20px;
+  }
+  
+  .grid-container {
+    gap: 20px;
+  }
+  
+  .ess-title {
+    font-size: 16px;
+  }
+  
+  .popup-content {
+    max-width: 90%;
+    padding: 25px;
+  }
+}
+
+/* 반응형 디자인 - 태블릿 (768px 이하) */
+@media (max-width: 768px) {
+  .header-content {
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  
+  .logo {
+    font-size: 18px;
+  }
+  
+  .nav-breadcrumb {
+    order: 3;
+    width: 100%;
+    font-size: 13px;
+  }
+  
+  .status-bar {
+    order: 2;
+    gap: 10px;
+  }
+  
+  .container {
+    padding: 15px;
+  }
+  
+  .stats-container {
+    flex-direction: column;
+    gap: 20px;
+    padding: 15px;
+  }
+  
+  .ess-image {
+    max-width: 100%;
+    width: 100%;
+  }
+  
+  .stats-panel {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+  
+  .stat-card {
+    padding: 15px;
+  }
+  
+  .stat-value {
+    font-size: 18px;
+  }
+  
+  .stat-trend {
+    font-size: 12px;
+    margin-left: 5px;
+  }
+  
+  .grid-container {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 15px;
+  }
+  
+  .ess-title {
+    font-size: 14px;
+  }
+  
+  .ess-metric-label {
+    font-size: 12px;
+  }
+  
+  .ess-metric-value {
+    font-size: 14px;
+  }
+  
+  .battery-grid {
+    grid-template-columns: repeat(15, 1fr);
+    gap: 3px;
+    padding: 15px;
+  }
+  
+  .battery-cell {
+    font-size: 10px;
+  }
+  
+  .minimap {
+    position: fixed;
+    top: auto;
+    bottom: 20px;
+    max-width: 300px;
+    width:100%;
+    max-height: 400px;
+    overflow-y: auto;
+  }
+  
+  .minimap-content {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .popup-content {
+    padding: 20px;
+    max-height: 85vh;
+  }
+  
+  .battery-details {
+    grid-template-columns: 1fr;
+  }
+  
+  .detail-value {
+    font-size: 18px;
+  }
+  
+  .back-button {
+    padding: 8px 15px;
+    font-size: 13px;
+  }
+}
+
+/* 반응형 디자인 - 모바일 (480px 이하) */
+@media (max-width: 480px) {
+  .header {
+    padding: 12px 15px;
+  }
+  
+  .logo {
+    font-size: 16px;
+  }
+  
+  .nav-breadcrumb {
+    font-size: 12px;
+  }
+  
+  .status-bar {
+    font-size: 11px;
+  }
+  
+  .container {
+    padding: 10px;
+  }
+  
+  .stats-container {
+    padding: 12px;
+    gap: 15px;
+  }
+  
+  .stats-panel {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  .stat-card {
+    padding: 12px;
+  }
+  
+  .stat-label {
+    font-size: 12px;
+  }
+  
+  .stat-value {
+    font-size: 16px;
+  }
+  
+  .stat-trend {
+    font-size: 11px;
+    padding: 2px 6px;
+  }
+  
+  .grid-container {
+    grid-template-columns: 1fr;
+    transform: none;
+    gap: 12px;
+  }
+  
+  .ess-unit {
+    padding: 15px;
+    max-width:50%;
+    width:50%;
+  }
+  
+  .ess-header {
+    margin-bottom: 10px;
+  }
+  
+  .ess-title {
+    font-size: 13px;
+  }
+  
+  .ess-status-icon {
+    width: 25px;
+    height: 25px;
+  }
+  
+  .ess-info {
+    gap: 8px;
+    margin-top: 10px;
+  }
+  
+  .ess-metric {
+    padding: 8px;
+  }
+  
+  .ess-metric-label {
+    font-size: 11px;
+    margin-bottom: 4px;
+  }
+  
+  .ess-metric-value {
+    font-size: 13px;
+  }
+  
+  .ess-battery-preview {
+    height: 50px;
+    margin-top: 10px;
+  }
+  
+  .battery-grid {
+    grid-template-columns: repeat(10, 1fr);
+    gap: 3px;
+    padding: 12px;
+  }
+  
+  .battery-cell {
+    font-size: 8px;
+  }
+  
+  .battery-detail-view h2 {
+    font-size: 18px;
+  }
+  
+  .popup-content {
+    padding: 15px;
+    border-radius: 15px;
+  }
+  
+  .popup-title {
+    font-size: 16px;
+  }
+  
+  .battery-status-badge {
+    font-size: 11px;
+    padding: 4px 10px;
+    margin-left: 10px;
+  }
+  
+  .detail-item {
+    padding: 12px;
+  }
+  
+  .detail-label {
+    font-size: 12px;
+  }
+  
+  .detail-value {
+    font-size: 16px;
+  }
+  
+  .chart-container {
+    padding: 15px;
+  }
+  
+  .chart-title {
+    font-size: 12px;
+  }
+  
+  .chart-bars {
+    height: 80px;
+  }
+  
+  .chart-label {
+    font-size: 11px;
+  }
+  
+  .minimap {
+    width: 100%;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    max-width: none;
+  }
+  
+  .minimap-content {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+  }
+  
+  .minimap-stats {
+    grid-template-columns: 1fr;
+  }
+  
+  .back-button {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+
+/* 툴팁 */
+.tooltip {
+  position: absolute;
+  background: rgba(30, 41, 59, 0.95);
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  pointer-events: none;
+  z-index: 1000;
+  display: none;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.tooltip.active {
+  display: block;
+}
+
+/* 미니맵 스타일 */
+.minimap {
+  position: fixed;
+  top: 100px;
+  right: 20px;
+  width: 280px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 12px;
+  padding: 10px;
+  z-index: 99;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 40px rgba(59, 130, 246, 0.2);
+  transition: all 0.3s ease;
+}
+
+.minimap:hover {
+  box-shadow: 0 15px 50px rgba(59, 130, 246, 0.3);
+  border-color: rgba(59, 130, 246, 0.5);
+}
+
+.minimap-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.minimap-title {
+  font-size: 14px;
+  font-weight: bold;
+  color: #3b82f6;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.minimap-toggle {
+  background: none;
+  border: none;
+  color: #64748b;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.3s;
+}
+
+.minimap-toggle:hover {
+  background: rgba(59, 130, 246, 0.2);
+  color: #3b82f6;
+}
+
+.minimap.collapsed {
+  width: 60px;
+  height: 60px;
+  padding: 10px;
+}
+
+.minimap.collapsed .minimap-content,
+.minimap.collapsed .minimap-stats {
+  display: none;
+}
+
+.minimap.collapsed .minimap-header {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.minimap.collapsed .minimap-title span {
+  display: none;
+}
+
+.minimap-content {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.minimap-ess {
+  aspect-ratio: 1;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 6px;
+  padding: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.minimap-ess:hover {
+  transform: scale(1.1);
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.minimap-ess.normal {
+  border-color: #3b82f6;
+  background: rgba(59, 130, 246, 0.1);
+}
+
+.minimap-ess.alert {
+  border-color: #EF4444;
+  background: rgba(239, 68, 68, 0.1);
+  animation: minimapAlert 2s infinite;
+}
+
+@keyframes minimapAlert {
+  0%, 100% { box-shadow: 0 0 8px rgba(239, 68, 68, 0.4); }
+  50% { box-shadow: 0 0 12px rgba(239, 68, 68, 0.8); }
+}
+
+.minimap-ess.selected {
+  border: 2px solid #3b82f6;
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.6);
+}
+
+.minimap-ess-label {
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 3px;
+  color: #64748b;
+}
+
+.minimap-battery-grid {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 1px;
+  height: 40px;
+}
+
+.minimap-battery {
+  background: #3b82f6;
+  opacity: 0.7;
+  border-radius: 1px;
+}
+
+.minimap-battery.alert {
+  background: #EF4444;
+  opacity: 1;
+}
+
+.minimap-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.minimap-stat {
+  background: rgba(255, 255, 255, 0.5);
+  padding: 6px 8px;
+  border-radius: 6px;
+}
+
+.minimap-stat-label {
+  color: #64748b;
+  font-size: 12px
+}
+
+.minimap-stat-value {
+  color: #3b82f6;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.minimap-stat-value.alert {
+  color: #EF4444;
+}
+
+/* 미니맵 인디케이터 */
+.minimap-indicator {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 8px;
+  height: 8px;
+  background: #3b82f6;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+.minimap-indicator.alert {
+  background: #EF4444;
+}

@@ -1,1128 +1,187 @@
 <!DOCTYPE html>
-
-<html class="dark" lang="ko">
-    <head>
-        <meta charset="utf-8"/>
-        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-        <title>TAOS - ESS CARE 대시보드</title>
-        <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-        <link
-            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
-            rel="stylesheet"/>
-        <link href="https://fonts.googleapis.com" rel="preconnect"/>
-        <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-        <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap"
-            rel="stylesheet"/>
-        <script>
-            tailwind.config = {
-                darkMode: "class",
-                theme: {
-                    extend: {
-                        colors: {
-                            "primary": "#48EBAE",
-                            "background-light": "#f6f7f8",
-                            "background-dark": "#1A1F2B",
-                            "card-dark": "#252B3A",
-                            "border-dark": "#364863"
-                        },
-                        fontFamily: {
-                            "display": ["Inter", "sans-serif"]
-                        },
-                        borderRadius: {
-                            "DEFAULT": "0.5rem",
-                            "lg": "0.75rem",
-                            "xl": "1rem",
-                            "full": "9999px"
-                        },
-                        boxShadow: {
-                            'neumorphic-light': '5px 5px 10px #d0d3d9, -5px -5px 10px #ffffff',
-                            'neumorphic-dark': '5px 5px 15px rgba(0, 0, 0, 0.3), -5px -5px 15px rgba(255, 255, 255, 0.05)',
-                            'neumorphic-inset-light': 'inset 5px 5px 10px #d0d3d9, inset -5px -5px 10px #ffffff',
-                            'neumorphic-inset-dark': 'inset 5px 5px 10px rgba(0, 0, 0, 0.3), inset -5px -5px 10px rgba(255, 255, 255' +
-                                    ', 0.05)'
-                        }
-                    }
-                }
-            }
-        </script>
-        <style>
-            body {
-                font-family: 'Inter', sans-serif;
-            }
-            .material-symbols-outlined {
-                font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-            }
-
-            /* 모바일 반응형 스타일 */
-            @media (max-width: 768px) {
-                .mobile-hidden {
-                    display: none !important;
-                }
-
-                .mobile-full {
-                    width: 100% !important;
-                }
-
-                .mobile-stack {
-                    flex-direction: column !important;
-                }
-
-                .mobile-text-base {
-                    font-size: 0.875rem !important;
-                }
-
-                .mobile-text-xs {
-                    font-size: 0.75rem !important;
-                }
-
-                .mobile-p-2 {
-                    padding: 0.5rem !important;
-                }
-
-                .mobile-p-3 {
-                    padding: 0.75rem !important;
-                }
-
-                .mobile-gap-2 {
-                    gap: 0.5rem !important;
-                }
-
-                .mobile-gap-3 {
-                    gap: 0.75rem !important;
-                }
-
-                .mobile-mb-2 {
-                    margin-bottom: 0.5rem !important;
-                }
-
-                .mobile-mb-3 {
-                    margin-bottom: 0.75rem !important;
-                }
-
-                .mobile-mt-2 {
-                    margin-top: 0.5rem !important;
-                }
-
-                .mobile-mt-3 {
-                    margin-top: 0.75rem !important;
-                }
-
-                .mobile-grid-1 {
-                    grid-template-columns: 1fr !important;
-                }
-
-                .mobile-grid-2 {
-                    grid-template-columns: repeat(2, 1fr) !important;
-                }
-
-                .mobile-text-center {
-                    text-align: center !important;
-                }
-
-                .mobile-overflow-x-auto {
-                    overflow-x: auto !important;
-                }
-
-                .mobile-min-w-0 {
-                    min-width: 0 !important;
-                }
-
-                .mobile-whitespace-nowrap {
-                    white-space: nowrap !important;
-                }
-
-                .mobile-scrollbar-hide {
-                    -ms-overflow-style: none;
-                    scrollbar-width: none;
-                }
-
-                .mobile-scrollbar-hide::-webkit-scrollbar {
-                    display: none;
-                }
-
-                /* 모바일에서 사이드바 숨기기 */
-                .mobile-sidebar-hidden {
-                    transform: translateX(-100%) !important;
-                }
-
-                /* 모바일에서 메인 콘텐츠 전체 너비 */
-                .mobile-main-full {
-                    margin-left: 0 !important;
-                    width: 100% !important;
-                }
-
-                /* 모바일에서 카드 크기 조정 */
-                .mobile-card-compact {
-                    padding: 0.75rem !important;
-                    margin-bottom: 0.5rem !important;
-                }
-
-                /* 모바일에서 텍스트 크기 조정 */
-                .mobile-text-responsive {
-                    font-size: 0.875rem !important;
-                    line-height: 1.25rem !important;
-                }
-
-                /* 모바일에서 숫자 크기 조정 */
-                .mobile-number-responsive {
-                    font-size: 1.5rem !important;
-                    font-weight: 700 !important;
-                }
-
-                /* 모바일에서 그리드 조정 */
-                .mobile-grid-responsive {
-                    grid-template-columns: repeat(2, 1fr) !important;
-                    gap: 0.5rem !important;
-                }
-
-                /* 모바일에서 테이블 스크롤 */
-                .mobile-table-scroll {
-                    overflow-x: auto !important;
-                    -webkit-overflow-scrolling: touch !important;
-                }
-
-                /* 모바일에서 버튼 크기 조정 */
-                .mobile-button-responsive {
-                    padding: 0.5rem 1rem !important;
-                    font-size: 0.875rem !important;
-                }
-            }
-        </style>
-    </head>
-    <body
-        class="bg-background-light dark:bg-background-dark text-white font-display">
-        <div class="flex min-h-screen">
-            <!-- 사이드바 -->
-            <aside
-                class="w-20 lg:w-64 bg-background-light dark:bg-background-dark flex flex-col p-4 border-r border-transparent dark:border-border-dark transition-all duration-300 mobile-hidden lg:flex">
-                <div class="flex items-center gap-3 mb-8 px-2">
-                    <div
-                        class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"
-                        data-alt="ESS CARE 회사 로고"
-                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDiUjzyulnqFpyGJDYzfCbAB25obupCqhsHi1IFU_jFqDPRaBZQypRvB6udwJ8LQ6KzvqDlHjMOIQQZV0VRYDMkE-lB35zWwwfXT0sUyDiGX5PJEivVTQWwHvsqcgODbSwpU-UlXZ_pwRIy-sK37UrdB1yOY4QaSg1SzBp21NQFe7SOvX9pZHuM5zsmhZXd_V8JBdh0JzCVcqgGPrdxceE3_gIhPz7nMSdR3Kr6KVVzInHvy1dnUraxFm_cPn4xD0Oyu8p7zi0va0Q");'></div>
-                    <div class="hidden lg:flex flex-col">
-                        <h1 class="text-white text-base font-bold leading-normal">ESS CARE</h1>
-                        <p class="text-gray-400 text-base font-normal">모니터링 플랫폼</p>
-                    </div>
-                </div>
-                <nav class="flex flex-col gap-2">
-                    <a
-                        class="flex items-center gap-3 px-3 py-2 rounded-lg bg-card-dark dark:bg-card-dark shadow-neumorphic-inset-dark"
-                        href="#">
-                        <span class="material-symbols-outlined text-primary">dashboard</span>
-                        <p class="text-primary text-base font-medium leading-normal hidden lg:block">대시보드</p>
-                    </a>
-                    <a
-                        class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-card-dark/60"
-                        href="#">
-                        <span class="material-symbols-outlined text-white">bar_chart</span>
-                        <p class="text-white text-base font-medium leading-normal hidden lg:block">보고서</p>
-                    </a>
-                    <a
-                        class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-card-dark/60"
-                        href="#">
-                        <span class="material-symbols-outlined text-white">notifications</span>
-                        <p class="text-white text-base font-medium leading-normal hidden lg:block">알림</p>
-                    </a>
-                    <a
-                        class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-card-dark/60"
-                        href="#">
-                        <span class="material-symbols-outlined text-white">settings</span>
-                        <p class="text-white text-base font-medium leading-normal hidden lg:block">설정</p>
-                    </a>
-                </nav>
-                <div class="mt-auto hidden lg:block p-4 bg-card-dark rounded-lg text-center"></div>
-            </aside>
-            <!-- 메인 콘텐츠 -->
-            <main class="flex-1 p-6 lg:p-8 mobile-main-full">
-                <header>
-                    <p class="text-3xl font-black leading-tight tracking-tight">대시보드</p>
-                    <p class="text-gray-400">ESS CARE 에너지 저장 시스템 모니터링 플랫폼에 오신 것을 환영합니다.</p>
-
-                    <!-- ESS 배터리 선택 -->
-                    <div class="mt-6 mb-4 mobile-p-3">
-                        <div class="flex items-center gap-4 mobile-stack mobile-gap-3">
-                            <span class="material-symbols-outlined text-primary text-6xl">battery_charging_full</span>
-                            <div class="flex flex-col">
-                                <label class="text-gray-300 text-base font-medium mb-2">ESS 배터리 선택</label>
-                                <select
-                                    id="batterySelect"
-                                    class="bg-card-dark border border-border-dark rounded-lg px-4 py-3 text-white text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent min-w-[200px]">
-                                    <option value="ESS-UNIT-001" selected="selected">ESS-UNIT-001 (메인 배터리)</option>
-                                    <option value="ESS-UNIT-002">ESS-UNIT-002 (백업 배터리)</option>
-                                    <option value="ESS-UNIT-003">ESS-UNIT-003 (보조 배터리)</option>
-                                    <option value="ESS-UNIT-004">ESS-UNIT-004 (테스트 배터리)</option>
-                                </select>
-                            </div>
-                            <div class="flex items-center gap-2 ml-4">
-                                <span class="w-3 h-3 bg-green-500 rounded-full"></span>
-                                <span class="text-green-500 text-base font-medium">4개 배터리 활성</span>
-                            </div>
-                            <div class="ml-auto flex items-center gap-4">
-                                <div class="bg-card-dark rounded-lg px-4 py-2 border border-border-dark">
-                                    <div class="flex items-center gap-2">
-                                        <span class="material-symbols-outlined text-primary text-base">location_on</span>
-                                        <span class="text-gray-300 text-base">위치: A동 지하 1층</span>
-                                    </div>
-                                </div>
-                                <div class="bg-card-dark rounded-lg px-4 py-2 border border-border-dark">
-                                    <div class="flex items-center gap-2">
-                                        <span class="material-symbols-outlined text-primary text-base">schedule</span>
-                                        <span class="text-gray-300 text-base">마지막 점검: 2024.01.15</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </body>
-                </html>
-
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESS CARE 시스템 대시보드</title>
+    <link rel="stylesheet" href="design.css">
+</head>
+<body>
+    <!-- 미니맵 -->
+    <div id="minimap" class="minimap">
+        <div class="minimap-header">
+            <div class="minimap-title">
+                <span>🗺️</span>
+                <span>전체 시스템 맵</span>
             </div>
-        </header>
-
-        <!-- 알림 및 보안 패널 -->
-        <h2
-            class="text-white text-xl font-bold leading-tight tracking-tight mt-10 mb-4">🚨 알림 및 보안 - ESS-UNIT-001</h2>
-        <div class="bg-card-dark rounded-xl shadow-neumorphic-dark p-6">
-            <div class="border-b border-border-dark">
-                <nav aria-label="탭" class="-mb-px flex space-x-8"></nav>
+            <button class="minimap-toggle" onclick="toggleMinimap()">
+                <span id="minimapToggleIcon">−</span>
+            </button>
+        </div>
+        <div class="minimap-content" id="minimapContent">
+            <!-- JavaScript로 동적 생성 -->
+        </div>
+        <div class="minimap-stats">
+            <div class="minimap-stat">
+                <div class="minimap-stat-label">총 배터리</div>
+                <div class="minimap-stat-value">3,780</div>
             </div>
-            <div class="overflow-x-auto">
-                <table class="min-w-full divide-y divide-border-dark">
-                    <thead class="bg-card-dark">
-                        <tr>
-                            <th
-                                class="px-6 py-3 text-left text-base font-medium text-gray-300 uppercase tracking-wider"
-                                scope="col">상태</th>
-                            <th
-                                class="px-6 py-3 text-left text-base font-medium text-gray-300 uppercase tracking-wider"
-                                scope="col">이벤트</th>
-                            <th
-                                class="px-6 py-3 text-left text-base font-medium text-gray-300 uppercase tracking-wider"
-                                scope="col">장치 ID</th>
-                            <th
-                                class="px-6 py-3 text-left text-base font-medium text-gray-300 uppercase tracking-wider"
-                                scope="col">시간</th>
-                        </tr>
-                    </thead>
-                    <tbody class="bg-card-dark divide-y divide-border-dark">
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap text-base font-medium">
-                                <span
-                                    class="px-2 inline-flex text-base leading-5 font-semibold rounded-full bg-red-100 text-red-800">긴급</span>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-base text-white">배터리 과열</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-base text-gray-300">ESS-UNIT-001</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-base text-gray-300">2분 전</td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap text-base font-medium">
-                                <span
-                                    class="px-2 inline-flex text-base leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">경고</span>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-base text-white">고전압 변동</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-base text-gray-300">ESS-UNIT-003</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-base text-gray-300">15분 전</td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap text-base font-medium">
-                                <span
-                                    class="px-2 inline-flex text-base leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">경고</span>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-base text-white">네트워크 연결 끊김</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-base text-gray-300">ESS-UNIT-002</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-base text-gray-300">28분 전</td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap text-base font-medium">
-                                <span
-                                    class="px-2 inline-flex text-base leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">정보</span>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-base text-white">펌웨어 업데이트 사용 가능</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-base text-gray-300">ESS-UNIT-004</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-base text-gray-300">1시간 전</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="minimap-stat">
+                <div class="minimap-stat-label">경고</div>
+                <div class="minimap-stat-value alert" id="minimapAlertCount">0</div>
+            </div>
+            <div class="minimap-stat">
+                <div class="minimap-stat-label">평균 SOC</div>
+                <div class="minimap-stat-value">82%</div>
+            </div>
+            <div class="minimap-stat">
+                <div class="minimap-stat-label">가동률</div>
+                <div class="minimap-stat-value">99.8%</div>
             </div>
         </div>
-
-
-        <!-- 기술·성능 지표 -->
-        <h2 class="text-white text-xl font-bold leading-tight tracking-tight mt-8 mb-4">🔋 기술·성능 지표</h2>
-        <div
-            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
-            <!-- 저장 용량 -->
-            <div
-                class="flex flex-col gap-2 rounded-xl p-4 bg-card-dark shadow-neumorphic-dark">
-                <div class="flex items-center gap-2">
-                    <span class="material-symbols-outlined text-primary text-lg">battery_full</span>
-                    <p class="text-gray-300 text-base font-medium">저장 용량 (Nameplate)</p>
-                </div>
-                <p id="capacityValue" class="text-primary text-4xl font-black">5.0 MWh</p>
-                <p class="text-gray-400 text-base">전체 저장 가능한 에너지량</p>
-                <div class="flex items-center gap-1 mt-2">
-                    <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-                    <span class="text-green-500 text-base font-medium">정상</span>
-                </div>
-            </div>
-
-            <!-- 현재 충전/방전 전력 -->
-            <div
-                class="flex flex-col gap-2 rounded-xl p-4 bg-card-dark shadow-neumorphic-dark">
-                <div class="flex items-center gap-2">
-                    <span class="material-symbols-outlined text-primary text-lg">power</span>
-                    <p class="text-gray-300 text-base font-medium">현재 전력 (Power in/out)</p>
-                </div>
-                <p id="powerValue" class="text-primary text-4xl font-black">500 kW</p>
-                <p class="text-gray-400 text-base">실시간 흐름 파악용</p>
-            </div>
-
-            <!-- 충전 상태 -->
-            <div
-                class="flex flex-col gap-2 rounded-xl p-4 bg-card-dark shadow-neumorphic-dark">
-                <div class="flex items-center gap-2">
-                    <span class="material-symbols-outlined text-primary text-lg">battery_charging_full</span>
-                    <p class="text-gray-300 text-base font-medium">충전 상태 (SOC)</p>
-                </div>
-                <p class="text-yellow-500 text-4xl font-black">74%</p>
-                <p class="text-gray-400 text-base">현재 배터리 충전률</p>
-                <div class="flex items-center gap-1 mt-2">
-                    <span class="w-2 h-2 bg-yellow-500 rounded-full"></span>
-                    <span class="text-yellow-500 text-base font-medium">주의</span>
-                </div>
-            </div>
-
-            <!-- 배터리 건강 상태 -->
-            <div
-                class="flex flex-col gap-2 rounded-xl p-4 bg-card-dark shadow-neumorphic-dark">
-                <div class="flex items-center gap-2">
-                    <span class="material-symbols-outlined text-primary text-lg">health_and_safety</span>
-                    <p class="text-gray-300 text-base font-medium">건강 상태 (SOH)</p>
-                </div>
-                <p class="text-primary text-4xl font-black">95%</p>
-                <p class="text-gray-400 text-base">배터리 수명·성능 지표</p>
-            </div>
-
-            <!-- 효율 -->
-            <div
-                class="flex flex-col gap-2 rounded-xl p-4 bg-card-dark shadow-neumorphic-dark">
-                <div class="flex items-center gap-2">
-                    <p class="text-gray-300 text-base font-medium">효율 (RTE)</p>
-                </div>
-                <p class="text-primary text-4xl font-black">92.5%</p>
-                <p class="text-gray-400 text-base">충전→저장→방전 손실률</p>
-            </div>
-
-            <!-- 사용 깊이 -->
-            <div
-                class="flex flex-col gap-2 rounded-xl p-4 bg-card-dark shadow-neumorphic-dark">
-                <div class="flex items-center gap-2">
-                    <span class="material-symbols-outlined text-primary text-lg">battery_alert</span>
-                    <p class="text-gray-300 text-base font-medium">사용 깊이 (DoD)</p>
-                </div>
-                <p class="text-primary text-4xl font-black">26%</p>
-                <p class="text-gray-400 text-base">배터리 방전 깊이</p>
-            </div>
-
-            <!-- 사이클 수 -->
-            <div
-                class="flex flex-col gap-2 rounded-xl p-4 bg-card-dark shadow-neumorphic-dark">
-                <div class="flex items-center gap-2">
-                    <span class="material-symbols-outlined text-primary text-lg">repeat</span>
-                    <p class="text-gray-300 text-base font-medium">사이클 수</p>
-                </div>
-                <p class="text-blue-500 text-4xl font-black">1,247</p>
-                <p class="text-gray-400 text-base">충·방전 반복 횟수</p>
-                <div class="flex items-center gap-1 mt-2">
-                    <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
-                    <span class="text-blue-500 text-base font-medium">정보</span>
-                </div>
-            </div>
-
-            <!-- 온도 및 열관리 -->
-            <div
-                class="flex flex-col gap-2 rounded-xl p-4 bg-card-dark shadow-neumorphic-dark">
-                <div class="flex items-center gap-2">
-                    <span class="material-symbols-outlined text-primary text-lg">thermostat</span>
-                    <p class="text-gray-300 text-base font-medium">온도</p>
-                </div>
-                <p class="text-red-500 text-4xl font-black">45°C</p>
-                <p class="text-gray-400 text-base">열관리 상태</p>
-                <div class="flex items-center gap-1 mt-2">
-                    <span class="w-2 h-2 bg-red-500 rounded-full"></span>
-                    <span class="text-red-500 text-base font-medium">위험</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 에너지 관리 지표 -->
-        <h2
-            class="text-white text-xl font-bold leading-tight tracking-tight mt-10 mb-4">⚡ 에너지 관리 지표</h2>
-        <div
-            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8 mobile-grid-responsive mobile-gap-2">
-            <!-- 피크 셰이빙 -->
-            <div
-                class="flex flex-col gap-2 rounded-xl p-4 bg-card-dark shadow-neumorphic-dark mobile-card-compact">
-                <div class="flex items-center gap-2">
-                    <span class="material-symbols-outlined text-primary text-lg">trending_down</span>
-                    <p class="text-gray-300 text-base font-medium">피크 셰이빙</p>
-                </div>
-                <p class="text-primary text-4xl font-black">2.1 MW</p>
-                <p class="text-gray-400 text-base">피크 시간대 부하 절감</p>
-                <div class="flex items-center gap-1 mt-2">
-                    <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-                    <span class="text-green-500 text-base font-medium">우수</span>
-                </div>
-            </div>
-
-            <!-- 부하 평준화 -->
-            <div
-                class="flex flex-col gap-2 rounded-xl p-4 bg-card-dark shadow-neumorphic-dark mobile-card-compact">
-                <div class="flex items-center gap-2">
-                    <span class="material-symbols-outlined text-primary text-lg">balance</span>
-                    <p class="text-gray-300 text-base font-medium">부하 평준화</p>
-                </div>
-                <p class="text-primary text-4xl font-black">87%</p>
-                <p class="text-gray-400 text-base">전력 사용 패턴 균등화</p>
-                <div class="flex items-center gap-1 mt-2">
-                    <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-                    <span class="text-green-500 text-base font-medium">양호</span>
-                </div>
-            </div>
-
-            <!-- 에너지 밸런싱 -->
-            <div
-                class="flex flex-col gap-2 rounded-xl p-4 bg-card-dark shadow-neumorphic-dark mobile-card-compact">
-                <div class="flex items-center gap-2">
-                    <span class="material-symbols-outlined text-primary text-lg">scale</span>
-                    <p class="text-gray-300 text-base font-medium">에너지 밸런싱</p>
-                </div>
-                <p class="text-primary text-4xl font-black">94%</p>
-                <p class="text-gray-400 text-base">수요-공급 균형 유지</p>
-                <div class="flex items-center gap-1 mt-2">
-                    <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-                    <span class="text-green-500 text-base font-medium">우수</span>
-                </div>
-            </div>
-
-            <!-- 백업 전력 용량 -->
-            <div
-                class="flex flex-col gap-2 rounded-xl p-4 bg-card-dark shadow-neumorphic-dark mobile-card-compact">
-                <div class="flex items-center gap-2">
-                    <span class="material-symbols-outlined text-primary text-lg">emergency</span>
-                    <p class="text-gray-300 text-base font-medium">백업 전력 용량</p>
-                </div>
-                <p class="text-primary text-4xl font-black">3.2 MW</p>
-                <p class="text-gray-400 text-base">정전 시 공급 가능</p>
-                <div class="flex items-center gap-1 mt-2">
-                    <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-                    <span class="text-green-500 text-base font-medium">충분</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 경제성 분석 지표 -->
-        <h2
-            class="text-white text-xl font-bold leading-tight tracking-tight mt-10 mb-4">💰 경제성 분석 지표</h2>
-        <div
-            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8 mobile-grid-responsive mobile-gap-2">
-            <!-- 전력 구매 비용 절감 -->
-            <div
-                class="flex flex-col gap-2 rounded-xl p-4 bg-card-dark shadow-neumorphic-dark mobile-card-compact">
-                <div class="flex items-center gap-2">
-                    <span class="material-symbols-outlined text-primary text-lg">savings</span>
-                    <p class="text-gray-300 text-base font-medium">전력 구매 비용 절감</p>
-                </div>
-                <p class="text-primary text-4xl font-black">₩1.8M</p>
-                <p class="text-gray-400 text-base">시간대별 요금 차이 활용</p>
-                <div class="flex items-center gap-1 mt-2">
-                    <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-                    <span class="text-green-500 text-base font-medium">우수</span>
-                </div>
-            </div>
-
-            <!-- 수요 반응 참여 수익 -->
-            <div
-                class="flex flex-col gap-2 rounded-xl p-4 bg-card-dark shadow-neumorphic-dark mobile-card-compact">
-                <div class="flex items-center gap-2">
-                    <span class="material-symbols-outlined text-primary text-lg">handshake</span>
-                    <p class="text-gray-300 text-base font-medium">수요 반응 참여 수익</p>
-                </div>
-                <p class="text-primary text-4xl font-black">₩650K</p>
-                <p class="text-gray-400 text-base">DR 프로그램 참여 수익</p>
-                <div class="flex items-center gap-1 mt-2">
-                    <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-                    <span class="text-green-500 text-base font-medium">양호</span>
-                </div>
-            </div>
-
-            <!-- 용량 요금 절감 -->
-            <div
-                class="flex flex-col gap-2 rounded-xl p-4 bg-card-dark shadow-neumorphic-dark mobile-card-compact">
-                <div class="flex items-center gap-2">
-                    <span class="material-symbols-outlined text-primary text-lg">trending_down</span>
-                    <p class="text-gray-300 text-base font-medium">용량 요금 절감</p>
-                </div>
-                <p class="text-primary text-4xl font-black">₩420K</p>
-                <p class="text-gray-400 text-base">최대 수요 전력 감소</p>
-                <div class="flex items-center gap-1 mt-2">
-                    <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-                    <span class="text-green-500 text-base font-medium">우수</span>
-                </div>
-            </div>
-
-            <!-- 탄소 크레딧 -->
-            <div
-                class="flex flex-col gap-2 rounded-xl p-4 bg-card-dark shadow-neumorphic-dark mobile-card-compact">
-                <div class="flex items-center gap-2">
-                    <span class="material-symbols-outlined text-primary text-lg">eco</span>
-                    <p class="text-gray-300 text-base font-medium">탄소 크레딧</p>
-                </div>
-                <p class="text-primary text-4xl font-black">₩180K</p>
-                <p class="text-gray-400 text-base">CO₂ 감소 크레딧 수익</p>
-                <div class="flex items-center gap-1 mt-2">
-                    <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-                    <span class="text-green-500 text-base font-medium">양호</span>
-                </div>
-            </div>
-        </div>
-        <!-- 운영 효율성 지표 -->
-        <h2
-            class="text-white text-xl font-bold leading-tight tracking-tight mt-10 mb-4">⚙️ 운영 효율성 지표</h2>
-        <div
-            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8 mobile-grid-responsive mobile-gap-2">
-            <!-- 가동률 -->
-            <div
-                class="flex flex-col gap-2 rounded-xl p-4 bg-card-dark shadow-neumorphic-dark mobile-card-compact">
-                <div class="flex items-center gap-2">
-                    <span class="material-symbols-outlined text-primary text-lg">schedule</span>
-                    <p class="text-gray-300 text-base font-medium">가동률</p>
-                </div>
-                <p class="text-primary text-4xl font-black">99.2%</p>
-                <p class="text-gray-400 text-base">시스템 가동 가능 시간</p>
-                <div class="flex items-center gap-1 mt-2">
-                    <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-                    <span class="text-green-500 text-base font-medium">우수</span>
-                </div>
-            </div>
-
-            <!-- 신뢰성 지표 -->
-            <div
-                class="flex flex-col gap-2 rounded-xl p-4 bg-card-dark shadow-neumorphic-dark mobile-card-compact">
-                <div class="flex items-center gap-2">
-                    <span class="material-symbols-outlined text-primary text-lg">verified</span>
-                    <p class="text-gray-300 text-base font-medium">신뢰성 지표</p>
-                </div>
-                <p class="text-primary text-4xl font-black">98.5%</p>
-                <p class="text-gray-400 text-base">MTBF/MTTR 기반 신뢰성</p>
-                <div class="flex items-center gap-1 mt-2">
-                    <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-                    <span class="text-green-500 text-base font-medium">우수</span>
-                </div>
-            </div>
-
-            <!-- 예측 정확도 -->
-            <div
-                class="flex flex-col gap-2 rounded-xl p-4 bg-card-dark shadow-neumorphic-dark mobile-card-compact">
-                <div class="flex items-center gap-2">
-                    <span class="material-symbols-outlined text-primary text-lg">psychology</span>
-                    <p class="text-gray-300 text-base font-medium">예측 정확도</p>
-                </div>
-                <p class="text-primary text-4xl font-black">92.8%</p>
-                <p class="text-gray-400 text-base">에너지 수요 예측 정확도</p>
-                <div class="flex items-center gap-1 mt-2">
-                    <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-                    <span class="text-green-500 text-base font-medium">양호</span>
-                </div>
-            </div>
-
-            <!-- 자동화 수준 -->
-            <div
-                class="flex flex-col gap-2 rounded-xl p-4 bg-card-dark shadow-neumorphic-dark mobile-card-compact">
-                <div class="flex items-center gap-2">
-                    <span class="material-symbols-outlined text-primary text-lg">auto_awesome</span>
-                    <p class="text-gray-300 text-base font-medium">자동화 수준</p>
-                </div>
-                <p class="text-primary text-4xl font-black">95.3%</p>
-                <p class="text-gray-400 text-base">자동 운영 비율</p>
-                <div class="flex items-center gap-1 mt-2">
-                    <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-                    <span class="text-green-500 text-base font-medium">우수</span>
-                </div>
-            </div>
-        </div>
-        <!-- 환경 및 지속가능성 지표 -->
-        <h2
-            class="text-white text-xl font-bold leading-tight tracking-tight mt-10 mb-4">🌱 환경 및 지속가능성 지표</h2>
-        <div
-            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8 mobile-grid-responsive mobile-gap-2">
-            <!-- 재생에너지 연계율 -->
-            <div
-                class="flex flex-col gap-2 rounded-xl p-4 bg-card-dark shadow-neumorphic-dark mobile-card-compact">
-                <div class="flex items-center gap-2">
-                    <span class="material-symbols-outlined text-primary text-lg">solar_power</span>
-                    <p class="text-gray-300 text-base font-medium">재생에너지 연계율</p>
-                </div>
-                <p class="text-primary text-4xl font-black">78%</p>
-                <p class="text-gray-400 text-base">태양광/풍력 연계 비율</p>
-                <div class="flex items-center gap-1 mt-2">
-                    <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-                    <span class="text-green-500 text-base font-medium">우수</span>
-                </div>
-            </div>
-
-            <!-- 탄소 발자국 -->
-            <div
-                class="flex flex-col gap-2 rounded-xl p-4 bg-card-dark shadow-neumorphic-dark mobile-card-compact">
-                <div class="flex items-center gap-2">
-                    <span class="material-symbols-outlined text-primary text-lg">footprint</span>
-                    <p class="text-gray-300 text-base font-medium">탄소 발자국</p>
-                </div>
-                <p class="text-primary text-4xl font-black">-2.3t</p>
-                <p class="text-gray-400 text-base">생명주기 CO₂ 배출량</p>
-                <div class="flex items-center gap-1 mt-2">
-                    <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-                    <span class="text-green-500 text-base font-medium">우수</span>
-                </div>
-            </div>
-
-            <!-- 재활용 가능성 -->
-            <div
-                class="flex flex-col gap-2 rounded-xl p-4 bg-card-dark shadow-neumorphic-dark mobile-card-compact">
-                <div class="flex items-center gap-2">
-                    <span class="material-symbols-outlined text-primary text-lg">recycling</span>
-                    <p class="text-gray-300 text-base font-medium">재활용 가능성</p>
-                </div>
-                <p class="text-primary text-4xl font-black">85%</p>
-                <p class="text-gray-400 text-base">배터리 재활용 계획률</p>
-                <div class="flex items-center gap-1 mt-2">
-                    <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-                    <span class="text-green-500 text-base font-medium">양호</span>
-                </div>
-            </div>
-
-            <!-- 친환경 인증 -->
-            <div
-                class="flex flex-col gap-2 rounded-xl p-4 bg-card-dark shadow-neumorphic-dark mobile-card-compact">
-                <div class="flex items-center gap-2">
-                    <span class="material-symbols-outlined text-primary text-lg">verified_user</span>
-                    <p class="text-gray-300 text-base font-medium">친환경 인증</p>
-                </div>
-                <p class="text-primary text-4xl font-black">LEED</p>
-                <p class="text-gray-400 text-base">Gold 등급 인증</p>
-                <div class="flex items-center gap-1 mt-2">
-                    <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-                    <span class="text-green-500 text-base font-medium">인증</span>
-                </div>
-            </div>
-        </div>
-        <!-- 운영 관리 지표 -->
-        <h2
-            class="text-white text-xl font-bold leading-tight tracking-tight mt-10 mb-4">⚙️ 운영 관리 지표</h2>
-        <div
-            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
-            <!-- 활성 알림 -->
-            <div
-                class="flex flex-col gap-2 rounded-xl p-4 bg-card-dark shadow-neumorphic-dark ring-2 ring-red-500">
-                <div class="flex items-center gap-2">
-                    <span class="material-symbols-outlined text-red-500 text-lg">warning</span>
-                    <p class="text-gray-300 text-base font-medium">활성 알림</p>
-                </div>
-                <p class="text-red-500 text-4xl font-black">5개</p>
-                <p class="text-gray-400 text-base">과충전, 과열, 네트워크 이상</p>
-            </div>
-
-            <!-- 비용 절감 -->
-            <div
-                class="flex flex-col gap-2 rounded-xl p-4 bg-card-dark shadow-neumorphic-dark">
-                <div class="flex items-center gap-2">
-                    <span class="material-symbols-outlined text-primary text-lg">savings</span>
-                    <p class="text-gray-300 text-base font-medium">비용 절감</p>
-                </div>
-                <p class="text-yellow-500 text-4xl font-black">₩2.4M</p>
-                <p class="text-gray-400 text-base">이번 달 절감액</p>
-            </div>
-
-            <!-- ROI -->
-            <div
-                class="flex flex-col gap-2 rounded-xl p-4 bg-card-dark shadow-neumorphic-dark">
-                <div class="flex items-center gap-2">
-                    <span class="material-symbols-outlined text-primary text-lg">trending_up</span>
-                    <p class="text-gray-300 text-base font-medium">ROI</p>
-                </div>
-                <p class="text-blue-500 text-4xl font-black">18.5%</p>
-                <p class="text-gray-400 text-base">투자 수익률</p>
-            </div>
-
-            <!-- 배출량 감소 -->
-            <div
-                class="flex flex-col gap-2 rounded-xl p-4 bg-card-dark shadow-neumorphic-dark">
-                <div class="flex items-center gap-2">
-                    <span class="material-symbols-outlined text-primary text-lg">eco</span>
-                    <p class="text-gray-300 text-base font-medium">배출량 감소</p>
-                </div>
-                <p class="text-primary text-4xl font-black">1.2t</p>
-                <p class="text-gray-400 text-base">CO₂ 감소량</p>
-            </div>
-        </div>
-        <!-- 실시간 시각화 -->
-        <h2
-            class="text-white text-xl font-bold leading-tight tracking-tight mt-10 mb-4">📊 실시간 시각화</h2>
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <!-- 배터리 성능 분석 차트 -->
-            <div class="lg:col-span-1 bg-card-dark rounded-xl shadow-neumorphic-dark p-6">
-                <h3 class="text-white text-lg font-semibold mb-4 w-full">배터리 성능 분석</h3>
-                <div class="space-y-6">
-                    <!-- SOC 게이지 -->
-                    <div class="text-center">
-                        <div class="relative w-32 h-32 mx-auto mb-4">
-                            <svg class="w-32 h-32 transform -rotate-90" viewbox="0 0 100 100">
-                                <circle cx="50" cy="50" r="40" stroke="#364863" stroke-width="8" fill="none"/>
-                                <circle
-                                    cx="50"
-                                    cy="50"
-                                    r="40"
-                                    stroke="#48EBAE"
-                                    stroke-width="8"
-                                    fill="none"
-                                    stroke-dasharray="251.2"
-                                    stroke-dashoffset="65.3"
-                                    stroke-linecap="round"/>
-                            </svg>
-                            <div class="absolute inset-0 flex items-center justify-center">
-                                <div class="text-center">
-                                    <p class="text-primary text-4xl font-black">74%</p>
-                                    <p class="text-gray-400 text-base">SOC</p>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="text-gray-300 text-base">충전 상태</p>
-                    </div>
-
-                    <!-- SOH 게이지 -->
-                    <div class="text-center">
-                        <div class="relative w-32 h-32 mx-auto mb-4">
-                            <svg class="w-32 h-32 transform -rotate-90" viewbox="0 0 100 100">
-                                <circle cx="50" cy="50" r="40" stroke="#364863" stroke-width="8" fill="none"/>
-                                <circle
-                                    cx="50"
-                                    cy="50"
-                                    r="40"
-                                    stroke="#48EBAE"
-                                    stroke-width="8"
-                                    fill="none"
-                                    stroke-dasharray="251.2"
-                                    stroke-dashoffset="12.6"
-                                    stroke-linecap="round"/>
-                            </svg>
-                            <div class="absolute inset-0 flex items-center justify-center">
-                                <div class="text-center">
-                                    <p class="text-primary text-4xl font-black">95%</p>
-                                    <p class="text-gray-400 text-base">SOH</p>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="text-gray-300 text-base">건강 상태</p>
-                    </div>
-
-                    <!-- 온도 표시 -->
-                    <div class="flex items-center justify-between p-3 bg-card-dark/50 rounded-lg">
-                        <div class="flex items-center gap-2">
-                            <span class="material-symbols-outlined text-primary">thermostat</span>
-                            <span class="text-white text-base">온도</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <span class="text-red-500 text-xl font-black">45°C</span>
-                            <span class="w-2 h-2 bg-red-500 rounded-full"></span>
-                        </div>
-                    </div>
-
-                    <!-- 사이클 수 -->
-                    <div class="flex items-center justify-between p-3 bg-card-dark/50 rounded-lg">
-                        <div class="flex items-center gap-2">
-                            <span class="material-symbols-outlined text-primary">repeat</span>
-                            <span class="text-white text-base">사이클 수</span>
-                        </div>
-                        <span class="text-blue-500 text-xl font-black">1,247</span>
-                    </div>
-                </div>
-            </div>
-            <!-- 입력/출력 전력 차트 -->
-            <div class="lg:col-span-2 bg-card-dark rounded-xl shadow-neumorphic-dark p-6">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <p class="text-white text-lg font-semibold">입력/출력 전력</p>
-                        <p class="text-gray-400 text-base">최근 24시간</p>
-                    </div>
-                    <div class="text-right">
-                        <p class="text-primary tracking-light text-3xl font-bold leading-tight">74% SOC</p>
-                        <p class="text-gray-400 text-base">충전 상태</p>
-                    </div>
-                </div>
-                <div
-                    class="flex min-h-[220px] h-[calc(100% - 100px)] flex-1 flex-col gap-8 py-4">
-                    <svg
-                        fill="none"
-                        height="100%"
-                        preserveaspectratio="none"
-                        viewbox="0 0 500 150"
-                        width="100%"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M0 109C18.1538 109 18.1538 21 36.3077 21C54.4615 21 54.4615 41 72.6154 41C90.7692 41 90.7692 93 108.923 93C127.077 93 127.077 33 145.231 33C163.385 33 163.385 101 181.538 101C199.692 101 199.692 61 217.846 61C236 61 236 45 254.154 45C272.308 45 272.308 121 290.462 121C308.615 121 308.615 149 326.769 149C344.923 149 344.923 1 363.077 1C381.231 1 381.231 81 399.385 81C417.538 81 417.538 129 435.692 129C453.846 129 453.846 25 490 25"
-                            stroke="#48EBAE"
-                            stroke-linecap="round"
-                            stroke-width="3"></path>
-                    </svg>
-                </div>
-                <div class="flex justify-around text-base text-gray-400 font-bold">
-                    <p>오전 12시</p>
-                    <p>오전 4시</p>
-                    <p>오전 8시</p>
-                    <p>오후 12시</p>
-                    <p>오후 4시</p>
-                    <p>오후 8시</p>
-                    <p>현재</p>
-                </div>
-            </div>
-        </div>
-        <!-- 트렌드 및 분석 섹션 -->
-        <h2
-            class="text-white text-xl font-bold leading-tight tracking-tight mt-10 mb-4">📈 트렌드 및 분석</h2>
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <!-- 7일 에너지 변동 -->
-            <div class="bg-card-dark rounded-xl shadow-neumorphic-dark p-6">
-                <p class="text-white text-lg font-semibold">7일 에너지 변동</p>
-                <p class="text-gray-400 text-base">최근 7일</p>
-                <div
-                    class="grid min-h-[200px] grid-flow-col gap-4 grid-rows-[1fr_auto] items-end justify-items-center px-3 pt-6">
-                    <div class="bg-primary/30 w-full rounded-t-md" style="height: 90%;"></div>
-                    <p class="text-gray-400 text-base font-bold">월</p>
-                    <div class="bg-primary/30 w-full rounded-t-md" style="height: 40%;"></div>
-                    <p class="text-gray-400 text-base font-bold">화</p>
-                    <div class="bg-primary/30 w-full rounded-t-md" style="height: 30%;"></div>
-                    <p class="text-gray-400 text-base font-bold">수</p>
-                    <div class="bg-primary/30 w-full rounded-t-md" style="height: 70%;"></div>
-                    <p class="text-gray-400 text-base font-bold">목</p>
-                    <div class="bg-primary/30 w-full rounded-t-md" style="height: 40%;"></div>
-                    <p class="text-gray-400 text-base font-bold">금</p>
-                    <div class="bg-primary w-full rounded-t-md" style="height: 80%;"></div>
-                    <p class="text-primary text-base font-bold">토</p>
-                    <div class="bg-primary/30 w-full rounded-t-md" style="height: 60%;"></div>
-                    <p class="text-gray-400 text-base font-bold">일</p>
-                </div>
-            </div>
-            <!-- 기타 분석 -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div
-                    class="bg-card-dark rounded-xl shadow-neumorphic-dark p-6 flex flex-col justify-between">
-                    <div>
-                        <p class="text-white text-lg font-semibold">효율성 비율</p>
-                        <p class="text-gray-400 text-base">왕복</p>
-                    </div>
-                    <p class="text-primary text-6xl font-black mt-4">92.5%</p>
-                </div>
-                <div
-                    class="bg-card-dark rounded-xl shadow-neumorphic-dark p-6 flex flex-col justify-between">
-                    <div>
-                        <p class="text-white text-lg font-semibold">예상 사용량</p>
-                        <p class="text-gray-400 text-base">다음 24시간</p>
-                    </div>
-                    <p class="text-primary text-6xl font-black mt-4">4.2 MWh</p>
-                </div>
-            </div>
-        </div>
-        
     </div>
-</div>
-</div>
-</div>
 
-<script>
-// ESS 배터리 데이터 (JSON 형태)
-const batteryData = {
-"ESS-UNIT-001": {
-    name: "메인 배터리",
-    capacity: "5.0 MWh",
-    power: "500 kW",
-    soc: "74%",
-    soh: "95%",
-    efficiency: "92.5%",
-    dod: "26%",
-    cycle: "1,247",
-    temp: "45°C",
-    alerts: 5,
-    costSavings: "₩2.4M",
-    roi: "18.5%",
-    co2Reduction: "1.2t",
-    location: "A동 지하 1층",
-    lastCheck: "2024.01.15",
-    status: "주의"
-},
-"ESS-UNIT-002": {
-    name: "백업 배터리",
-    capacity: "3.2 MWh",
-    power: "320 kW",
-    soc: "85%",
-    soh: "98%",
-    efficiency: "94.2%",
-    dod: "15%",
-    cycle: "892",
-    temp: "22°C",
-    alerts: 1,
-    costSavings: "₩1.8M",
-    roi: "22.1%",
-    co2Reduction: "0.8t",
-    location: "B동 지하 2층",
-    lastCheck: "2024.01.10",
-    status: "정상"
-},
-"ESS-UNIT-003": {
-    name: "보조 배터리",
-    capacity: "2.5 MWh",
-    power: "250 kW",
-    soc: "45%",
-    soh: "87%",
-    efficiency: "89.8%",
-    dod: "55%",
-    cycle: "2,156",
-    temp: "38°C",
-    alerts: 3,
-    costSavings: "₩1.2M",
-    roi: "15.3%",
-    co2Reduction: "0.6t",
-    location: "C동 지상 1층",
-    lastCheck: "2024.01.08",
-    status: "경고"
-},
-"ESS-UNIT-004": {
-    name: "테스트 배터리",
-    capacity: "1.0 MWh",
-    power: "100 kW",
-    soc: "95%",
-    soh: "99%",
-    efficiency: "96.1%",
-    dod: "5%",
-    cycle: "234",
-    temp: "20°C",
-    alerts: 0,
-    costSavings: "₩0.5M",
-    roi: "28.7%",
-    co2Reduction: "0.3t",
-    location: "실험실 3층",
-    lastCheck: "2024.01.20",
-    status: "우수"
-}
-};
+    <!-- 헤더 -->
+    <div class="header">
+        <div class="header-content">
+            <div class="logo">
+                <img src="./img/logo.png" alt="logo" class="logo-image">
+            </div>
+            <div class="nav-breadcrumb">
+                <span id="breadcrumb">전체시스템</span>
+            </div>
+            <div class="status-bar">
+                <div class="status-item">
+                    <div class="status-indicator normal"></div>
+                    <span>정상: <span id="normalCount">7</span></span>
+                </div>
+                <div class="status-item">
+                    <div class="status-indicator alert"></div>
+                    <span>경고: <span id="alertCount">2</span></span>
+                </div>
+            </div>
+        </div>
+    </div>
 
-// DOM 요소들
-const batterySelect = document.getElementById('batterySelect');
+    <div class="container">
 
-// 배터리 선택 변경 이벤트
-batterySelect.addEventListener('change', function () {
-const selectedBattery = this.value;
+        
+        <!-- 통계 패널 -->
+        <div class="stats-container">
+            <img src="./img/ess.png" alt="ess-system" class="ess-image">
+            <div class="stats-panel">
+            <div class="stat-card">
+                <div class="stat-label">시스템 가동률</div>
+                <div class="stat-value" id="avgAvailability">98.7%<span class="stat-trend">정상</span></div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">평균 RTE (왕복효율)</div>
+                <div class="stat-value" id="avgRTE">93.5%<span class="stat-trend">▲ 0.3%</span></div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">일일 CO₂ 감축</div>
+                <div class="stat-value" id="totalCO2">24.8톤<span class="stat-trend">▲ 2.1톤</span></div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">일일 비용 절감</div>
+                <div class="stat-value" id="totalSaving">162만<span class="stat-trend">▲ 8.2%</span></div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">재생에너지 연계율</div>
+                <div class="stat-value" id="avgRenewable">72.3%<span class="stat-trend">태양광</span></div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Peak Shaving</div>
+                <div class="stat-value" id="avgPeakShaving">89.2%<span class="stat-trend">효율</span></div>
+            </div>
+            </div>
+        </div>
 
-if (selectedBattery === 'all') {
-    // 전체 배터리 보기 모드
-    showAllBatteries();
-} else {
-    // 개별 배터리 보기 모드
-    showBatteryData(selectedBattery);
-}
-});
+        <!-- ESS 그리드 뷰 (항공뷰) -->
+        <div id="essGridView" class="ess-grid">
+            <div class="grid-container" id="essGrid">
+                <!-- JavaScript로 동적 생성 -->
+            </div>
+        </div>
 
-// 개별 배터리 데이터 표시
-function showBatteryData(batteryId) {
-const data = batteryData[batteryId];
-if (!data) 
-    return;
+        <!-- 배터리 상세 뷰 -->
+        <div id="batteryDetailView" class="battery-detail-view">
+            <button class="back-button" onclick="showESSGrid()">
+                ← ESS 목록으로 돌아가기
+            </button>
+            <h2 style="margin-bottom: 20px;">
+                <span id="selectedESSName">ESS-01</span> 배터리 상태
+            </h2>
+            <div class="battery-grid" id="batteryGrid">
+                <!-- JavaScript로 동적 생성 -->
+            </div>
+        </div>
+    </div>
 
-// 기술·성능 지표 업데이트
-if (document.getElementById('capacityValue')) {
-    document
-        .getElementById('capacityValue')
-        .textContent = data.capacity;
-}
-if (document.getElementById('powerValue')) {
-    document
-        .getElementById('powerValue')
-        .textContent = data.power;
-}
+    <!-- 배터리 상세 팝업 -->
+    <div id="batteryPopup" class="popup-overlay">
+        <div class="popup-content">
+            <div class="popup-header">
+                <div>
+                    <span class="popup-title" id="popupBatteryId">배터리 B-001</span>
+                    <span id="popupStatus" class="battery-status-badge normal">정상</span>
+                </div>
+                <button class="close-button" onclick="closeBatteryPopup()">×</button>
+            </div>
+            
+            <div class="battery-details">
+                <div class="detail-item">
+                    <div class="detail-label">전압 (Voltage)</div>
+                    <div class="detail-value" id="popupVoltage">3.85V</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">전류 (Current)</div>
+                    <div class="detail-value" id="popupCurrent">25.4A</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">온도 (Temperature)</div>
+                    <div class="detail-value" id="popupTemp">28.5°C</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">충전상태 (SOC)</div>
+                    <div class="detail-value" id="popupSOC">85%</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">건강상태 (SOH)</div>
+                    <div class="detail-value" id="popupSOH">98%</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">사이클 수</div>
+                    <div class="detail-value" id="popupCycles">342</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">방전깊이 (DoD)</div>
+                    <div class="detail-value" id="popupDoD">70%</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">내부저항</div>
+                    <div class="detail-value" id="popupResistance">2.8mΩ</div>
+                </div>
+            </div>
 
-// 상태에 따른 색상 변경
-updateStatusColors(data);
+            <div class="chart-container">
+                <div class="chart-title">최근 1시간 전압 추이</div>
+                <div class="chart-bars">
+                    <div class="chart-bar" style="height: 70%"><span class="chart-label">10분</span></div>
+                    <div class="chart-bar" style="height: 75%"><span class="chart-label">20분</span></div>
+                    <div class="chart-bar" style="height: 80%"><span class="chart-label">30분</span></div>
+                    <div class="chart-bar" style="height: 78%"><span class="chart-label">40분</span></div>
+                    <div class="chart-bar" style="height: 85%"><span class="chart-label">50분</span></div>
+                    <div class="chart-bar" style="height: 82%"><span class="chart-label">60분</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-// 알림 헤더 업데이트
-const alertHeaders = document.querySelectorAll('h2');
-alertHeaders.forEach(header => {
-    if (header.textContent.includes('알림 및 보안')) {
-        header.textContent = `🚨 알림 및 보안 - ${batteryId}`;
-    }
-});
-}
+    <!-- 툴팁 -->
+    <div id="tooltip" class="tooltip"></div>
 
-// 상태에 따른 색상 업데이트
-function updateStatusColors(data) {
-// SOC 색상 (74% 이하는 주의, 85% 이상은 정상)
-const soc = parseInt(data.soc);
-if (soc < 75) {
-    // 주의 상태 - 노란색
-    console.log('SOC 주의 상태:', data.soc);
-} else {
-    // 정상 상태 - 녹색
-    console.log('SOC 정상 상태:', data.soc);
-}
 
-// 온도 색상 (30°C 이상은 위험, 25°C 이하는 정상)
-const temp = parseInt(data.temp);
-if (temp > 30) {
-    // 위험 상태 - 빨간색
-    console.log('온도 위험 상태:', data.temp);
-} else {
-    // 정상 상태 - 녹색
-    console.log('온도 정상 상태:', data.temp);
-}
-}
-
-// 전체 배터리 보기 모드
-function showAllBatteries() {
-// 전체 배터리 평균값 계산
-const batteries = Object.values(batteryData);
-const avgCapacity = (
-    batteries.reduce((sum, b) => sum + parseFloat(b.capacity), 0) / batteries.length
-).toFixed(1);
-const avgPower = Math.round(
-    batteries.reduce((sum, b) => sum + parseInt(b.power), 0) / batteries.length
-);
-
-// 평균값으로 업데이트
-if (document.getElementById('capacityValue')) {
-    document
-        .getElementById('capacityValue')
-        .textContent = `${avgCapacity} MWh`;
-}
-if (document.getElementById('powerValue')) {
-    document
-        .getElementById('powerValue')
-        .textContent = `${avgPower} kW`;
-}
-
-// 알림 헤더 업데이트
-const alertHeaders = document.querySelectorAll('h2');
-alertHeaders.forEach(header => {
-    if (header.textContent.includes('알림 및 보안')) {
-        header.textContent = '🚨 알림 및 보안 - 전체 배터리';
-    }
-});
-}
-
-// 페이지 로드 시 초기 데이터 설정
-document.addEventListener('DOMContentLoaded', function () {
-showBatteryData('ESS-UNIT-001');
-});
-</script>
-
+    <script src="script.js"></script>
 </body>
 </html>
