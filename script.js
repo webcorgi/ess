@@ -24,7 +24,7 @@ for (let i = 0; i < 9; i++) {
             status: isErrorBattery ? 'alert' : 'normal',
             voltage: isErrorBattery ? (3.2 + Math.random() * 0.2).toFixed(2) : (3.65 + Math.random() * 0.2).toFixed(2),
             current: (20 + Math.random() * 10).toFixed(1),
-            temperature: isErrorBattery ? (38 + Math.random() * 5).toFixed(1) : (24 + Math.random() * 4).toFixed(1),
+            temperature: isErrorBattery ? (45 + Math.random() * 5).toFixed(1) : (24 + Math.random() * 4).toFixed(1),
             soc: isErrorBattery ? Math.floor(15 + Math.random() * 10) : Math.floor(75 + Math.random() * 15),
             soh: isErrorBattery ? Math.floor(75 + Math.random() * 5) : Math.floor(96 + Math.random() * 4),
             cycles: Math.floor(800 + Math.random() * 1200),
@@ -38,7 +38,7 @@ for (let i = 0; i < 9; i++) {
         status: hasError ? 'alert' : 'normal',
         voltage: (48.5 + Math.random() * 1).toFixed(1),
         current: (100 + Math.random() * 50).toFixed(1),
-        temperature: hasError ? (32 + Math.random() * 3).toFixed(1) : (25 + Math.random() * 3).toFixed(1),
+        temperature: hasError ? (45 + Math.random() * 5).toFixed(1) : (25 + Math.random() * 3).toFixed(1),
         soc: Math.floor(75 + Math.random() * 15),
         soh: Math.floor(95 + Math.random() * 5),
         batteries: batteries,
@@ -324,7 +324,7 @@ function updateData() {
         // 정상 범위 내에서 변동
         ess.voltage = (48.5 + Math.random() * 1).toFixed(1);
         ess.current = (100 + Math.random() * 50).toFixed(1);
-        ess.temperature = hasError ? (32 + Math.random() * 3).toFixed(1) : (25 + Math.random() * 3).toFixed(1);
+        ess.temperature = hasError ? (45 + Math.random() * 5).toFixed(1) : (25 + Math.random() * 3).toFixed(1);
         ess.soc = Math.floor(75 + Math.random() * 15);
         ess.rte = (92 + Math.random() * 3).toFixed(1);
         ess.availability = hasError ? (94 + Math.random() * 2).toFixed(1) : (99.2 + Math.random() * 0.5).toFixed(1);
